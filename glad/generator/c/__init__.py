@@ -160,7 +160,7 @@ def c_commands(context, commands):
     return [command for command in commands if not command in core]
 
 
-_CPP_STYLE_COMMENT_RE = re.compile(r'(^|\s|\))//(?P<comment>.*)$', flags=re.MULTILINE)
+_CPP_STYLE_COMMENT_RE = re.compile(r'^\s*[^*](^|\s|\))//(?P<comment>.*)$', flags=re.MULTILINE)
 
 
 def replace_cpp_style_comments(inp):
@@ -220,6 +220,21 @@ class CGenerator(JinjaGenerator):
 
     ADDITIONAL_HEADERS = [
         Header(
+            'CL/cl_platform.h',
+            'CL/cl_platform.h',
+            'https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/CL/cl_platform.h'
+        ),
+        Header(
+            'CL/cl_gl.h',
+            'CL/cl_gl.h',
+            'https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/CL/cl_gl.h'
+        ),
+        Header(
+            'CL/cl_version.h',
+            'CL/cl_version.h',
+            'https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/master/CL/cl_version.h'
+        ),
+        Header(
             'khrplatform',
             'KHR/khrplatform.h',
             'https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/master/api/KHR/khrplatform.h'
@@ -233,7 +248,7 @@ class CGenerator(JinjaGenerator):
             'vk_platform',
             'vk_platform.h',
             'https://raw.githubusercontent.com/KhronosGroup/Vulkan-Docs/master/include/vulkan/vk_platform.h'
-        ),
+        )
     ]
 
     def __init__(self, *args, **kwargs):
